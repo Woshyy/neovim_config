@@ -1,0 +1,9 @@
+vim.opt.tabstop = 2
+vim.opt.shiftwidth = 2
+vim.opt.expandtab = true
+vim.opt.number = true
+vim.opt.relativenumber = true
+vim.opt.mouse = "a"
+vim.opt.clipboard = "unnamedplus"
+vim.o.updatetime = 300 -- slight delay before triggering events (optional but nice)
+vim.opt.number = true         -- show current line number
