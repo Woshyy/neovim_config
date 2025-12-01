@@ -4,8 +4,9 @@ return {
     "williamboman/mason-lspconfig.nvim",
     dependencies = { "williamboman/mason.nvim" },
     opts = {
-      ensure_installed = { "gopls", "lua_ls", "rust_analyzer" }, -- add more if you like
+      ensure_installed = {"lua_ls"}, -- add more if you like
       automatic_installation = true,
+      automatic_setup = true,
     },
   },
   {
@@ -13,9 +14,6 @@ return {
     dependencies = { "williamboman/mason.nvim" },
     opts = {
       ensure_installed = {
-        "gofumpt",
-        "goimports",
-        "golangci-lint",
         "delve",
       },
       auto_update = false,

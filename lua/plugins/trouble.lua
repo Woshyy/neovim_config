@@ -25,7 +25,7 @@ return {
   },
   keys = {
     {
-      "<leader>xx",
+      "<leader>ce",
       "<cmd>Trouble diagnostics toggle<cr>",
       desc = "Diagnostics (Trouble)",
     },
@@ -59,9 +59,9 @@ return {
     require("trouble").setup({
       -- "workspace_diagnostics", "document_diagnostics", "quickfix", "lsp_references", "loclist"
       mode = "workspace_diagnostics",
-      position = "bottom", -- position of the list can be: bottom, top, left, right
-      height = 15,
       padding = false,
+      position = "right",
+      width = 20,
       action_keys = {
         -- key mappings for actions in the trouble list
         close = "q",                -- close the list

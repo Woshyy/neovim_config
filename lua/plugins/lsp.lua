@@ -57,7 +57,7 @@ return {
     config = function(_, opts)
       -- Pretty hover
       vim.lsp.handlers["textDocument/hover"] =
-        vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
+          vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
 
       -- Keymaps + semantic tokens on LSP attach (guard client_id!)
       vim.api.nvim_create_autocmd("LspAttach", {
@@ -71,22 +71,23 @@ return {
           local map = function(m, lhs, rhs, desc)
             vim.keymap.set(m, lhs, rhs, { buffer = bufnr, silent = true, desc = desc })
           end
-          map("n", "K",  vim.lsp.buf.hover,        "Hover")
-          map("n", "gd", vim.lsp.buf.definition,   "Go to Definition")
-          map("n", "gr", vim.lsp.buf.references,   "References")
-          map("n", "<leader>rn", vim.lsp.buf.rename,      "Rename")
+          map("n", "<leader>ci", vim.lsp.buf.hover, "Hover Info")
+          vim.api.nvim_set_keymap("n", "ce", "<cmd>lua vim.diagnostic.open_float()<CR>",
+            { noremap = true, silent = true })
+          map("n", "<leader>cd", vim.lsp.buf.definition, "Go to Definition")
+          map("n", "<leader>cr", vim.lsp.buf.references, "References")
+          map("n", "<leader>cc", vim.lsp.buf.rename, "Rename")
           map("n", "<leader>ca", vim.lsp.buf.code_action, "Code Action")
           map("n", "[d", vim.diagnostic.goto_prev, "Prev Diagnostic")
           map("n", "]d", vim.diagnostic.goto_next, "Next Diagnostic")
-          map("n", "<leader>i", function() 
-            local enabled = vim.lsp.inlay_hint.is_enabled() 
+          map("n", "<leader>i", function()
+            local enabled = vim.lsp.inlay_hint.is_enabled()
             vim.lsp.inlay_hint.enable(not enabled)
           end, "Toggle inlay hints")
 
           if client.server_capabilities.semanticTokensProvider then
             vim.lsp.semantic_tokens.start(bufnr, client.id)
           end
-
         end,
       })
 
@@ -107,9 +108,8 @@ return {
         vim.lsp.config(name, cfg)
       end
       for name, _ in pairs(opts.servers or {}) do
-        vim.lsp.enable(name)  -- explicit per-server enable (works on 0.11.4)
+        vim.lsp.enable(name) -- explicit per-server enable (works on 0.11.4)
       end
     end,
   },
 }
-

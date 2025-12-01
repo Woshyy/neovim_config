@@ -13,7 +13,7 @@ map("n", "<space>fD", function()
   end
 
   local tail = vim.fn.fnamemodify(buf, ":t")
-  local encoded = buf:gsub("[/\\]", "%%")   -- Neovim-encoded full path
+  local encoded = buf:gsub("[/\\]", "%%") -- Neovim-encoded full path
 
   local roots = {}
   for _, d in ipairs(vim.split(vim.o.directory, ",", { trimempty = true })) do
@@ -42,4 +42,4 @@ map("n", "<space>fD", function()
   end
 end, { desc = "Delete swap file(s) for current buffer" })
 
-map("n", "<leader>fs", "<cmd>write<CR>", {desc="Save file"})
+map("n", "<leader>s", "<cmd>write<CR>", { desc = "Save file" })
