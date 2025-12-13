@@ -55,41 +55,65 @@ return {
       desc = "Quickfix List (Trouble)",
     },
   },
+  icons = {
+    indent = {
+      middle = " ",
+      last = " ",
+      top = " ",
+      ws = "│  ",
+    },
+  },
   config = function()
     require("trouble").setup({
-      -- "workspace_diagnostics", "document_diagnostics", "quickfix", "lsp_references", "loclist"
       mode = "workspace_diagnostics",
       padding = false,
+      focus = true,
+      warn_no_results = false,
+      open_no_results = true,
       win = {
-        type = "float",      -- <─ make it a floating window
-        relative = "editor", -- or "win" if you want it relative to the current window
-        border = "rounded",  -- "single", "double", "none", etc
-        position = "bottom", -- or "top", "left", "right", "bottomright", ...
-        size = {             -- can be absolute or 0–1 for percentage
+        type = "float",
+        relative = "editor",
+        border = "rounded",
+        position = "bottom",
+        size = {
           width = 0.6,
           height = 0.3,
         },
-      },
-      action_keys = {
-        -- key mappings for actions in the trouble list
-        close = "q",               -- close the list
-        cancel = "<esc>",          -- cancel the preview and get back to your last window / buffer / cursor
-        refresh = "r",             -- manually refresh
-        jump = { "<tab>" },        -- jump to the diagnostic or open / close folds
-        open_split = { "<c-x>" },  -- open buffer in new split
-        open_vsplit = { "<c-v>" }, -- open buffer in new vsplit
-        open_tab = { "<c-t>" },    -- open buffer in new tab
-        jump_close = { "<cr>" },   -- jump to the diagnostic and close the list
-        toggle_mode = "m",         -- toggle between "workspace" and "document" diagnostics mode
-        toggle_preview = "P",      -- toggle auto_preview
-        hover = "K",               -- opens a small popup with the full multiline message
-        preview = "p",             -- preview the diagnostic location
-        close_folds = { "zM" },    -- close all folds
-        open_folds = { "zR" },     -- open all folds
-        toggle_fold = { "za" },    -- toggle fold of current file
       },
       auto_jump = {},
       use_diagnostic_signs = true,
     })
   end,
+  modes = {
+    -- cascade = {
+    --   mode = "diagnostics", -- inherit from diagnostics mode
+    --   filter = function(items)
+    --     local severity = vim.diagnostic.severity.HINT
+    --     for _, item in ipairs(items) do
+    --       severity = math.min(severity, item.severity)
+    --     end
+    --     return vim.tbl_filter(function(item)
+    --       return item.severity == severity
+    --     end, items)
+    --   end,
+    -- },
+    preview_float = {
+      mode = "diagnostics",
+      preview = {
+        type = "float",
+        relative = "editor",
+        border = "rounded",
+        title = "Preview",
+        title_pos = "center",
+        position = { 0, -2 },
+        size = { width = 0.3, height = 0.3 },
+        zindex = 200,
+      },
+    },
+    diagnostics = {
+      groups = {
+        { "filename", format = "{file_icon} {basename:Title} {count}" },
+      },
+    },
+  },
 }
